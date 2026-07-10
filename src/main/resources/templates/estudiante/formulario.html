@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Estudiante</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container-lg mt-4">
+    <h1 th:text="${estudiante.idUsuario} != null ? 'Editar estudiante' : 'Nuevo estudiante'"></h1>
+    <form th:action="@{/estudiantes/guardar}" method="post">
+        <div class="mb-3" th:if="${estudiante.idUsuario} == null">
+            <label for="idUsuario" class="form-label">Usuario</label>
+            <select class="form-select" id="idUsuario" name="idUsuario" required>
+                <option value="">Seleccione un usuario</option>
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.idUsuario}"
+                        th:text="${usuario.nombre} + ' - ' + ${usuario.correo}">
+                </option>
+            </select>
+        </div>
+        <div th:if="${estudiante.idUsuario} != null">
+            <input type="hidden" name="idUsuario" th:value="${estudiante.idUsuario}"/>
+            <div class="mb-3">
+                <label class="form-label">Usuario</label>
+                <input type="text" class="form-control" th:value="${estudiante.usuario.nombre}" disabled/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="carrera" class="form-label">Carrera</label>
+            <input type="text" class="form-control" id="carrera" name="carrera"
+                   th:value="${estudiante.carrera}"/>
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="telefono" name="telefono"
+                   th:value="${estudiante.telefono}"/>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="activo" name="activo" value="true"
+                   th:checked="${estudiante.activo} == null or ${estudiante.activo} == true">
+            <label class="form-check-label" for="activo">Activo</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Materias en las que necesita tutoría</label>
+            <div class="form-check" th:each="asignatura : ${asignaturas}">
+                <input type="checkbox" class="form-check-input"
+                       th:id="${'asig-' + asignatura.idAsignatura}"
+                       name="asignaturaIds"
+                       th:value="${asignatura.idAsignatura}"
+                       th:checked="${asignaturasSeleccionadas.contains(asignatura.idAsignatura)}">
+                <label class="form-check-label" th:for="${'asig-' + asignatura.idAsignatura}"
+                       th:text="${asignatura.nombre}"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/estudiantes}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>
