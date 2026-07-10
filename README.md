@@ -39,6 +39,46 @@ Universidad Fidélitas - 2026
 
 ---
 
-## Estado del proyecto
+### Pasos para levantar el proyecto
+ 
+1. **Configurar la conexión** en `src/main/resources/application.properties` según tu instalación local de MySQL (usuario y contraseña):
+```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/tutorconnect
+   spring.datasource.username=root
+   spring.datasource.password=1234
+```
+   Las tablas se crean y actualizan automáticamente al iniciar la aplicación (`spring.jpa.hibernate.ddl-auto=update`), no es necesario correr scripts SQL manuales.
+ 
+2. **Ejecutar la aplicación** desde el IDE (clase `TutorconnectApplication`) o por línea de comandos:
+```bash
+   ./mvnw spring-boot:run
+```
+ 
+3. **Acceder desde el navegador.** La app corre en el puerto `80`, así que la URL base es:
+```
+   http://localhost/
+```
+   Rutas disponibles actualmente:
+   - `http://localhost/usuarios` — listado de usuarios
+   - `http://localhost/tutores` — listado, alta y edición de tutores
+   - `http://localhost/estudiantes` — módulo de estudiantes
+   - `http://localhost/asignaturas` — módulo de asignaturas (ver nota en Pendientes)
+---
+ 
+## Estado del avance
+ 
+**Entrega 2 en progreso.** Módulos implementados hasta el momento, cada uno con arquitectura en capas (`domain` → `repository` → `service` → `controller` → vistas Thymeleaf con Bootstrap):
+ 
+| Módulo | Responsable | Estado |
+|---|---|---|
+| Usuario | Jorge Viquez Espinoza | Creó la base de datos en MySQL Workbench, el módulo de Usuario con su listado, la conexión con MySQL y la integración de Bootstrap. |
+| Asignatura | Henry Gerardo Izaba Díaz | CRUD en backend completo. Vistas con desajuste de nombres/rutas pendiente de corregir (ver Pendientes). |
+| Tutor | Juan Carlos Vega Esquivel | CRUD completo: alta, edición, listado y eliminación, con selección de asignaturas que imparte (relación muchos a muchos) y actualizacion del READ.ME |
+| Estudiante | Gabriel Martinez Quesada | CRUD implementado. |
+ 
+---
+ 
+## Flujo de trabajo colaborativo
+ 
+El equipo trabaja con ramas por funcionalidad (`feature/nombre-del-modulo`) y Pull Requests hacia `main`, revisados antes de aceptarse.
 
-Entrega 1 completada - Planteamiento, historias de usuario y prototipo inicial
