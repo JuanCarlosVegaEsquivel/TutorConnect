@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Asignaturas - TutorConnect</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f6f9;
+        }
+        .navbar {
+            background-color: #0d3b66;
+            color: #fff;
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .brand {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .navbar .user-info {
+            font-size: 14px;
+        }
+        .navbar .user-info a {
+            color: #cfe3ff;
+            text-decoration: none;
+            margin-left: 12px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px 28px;
+        }
+        .card h2 {
+            color: #0d3b66;
+            margin-bottom: 18px;
+            font-size: 22px;
+        }
+        .btn {
+            display: inline-block;
+            border: none;
+            border-radius: 6px;
+            padding: 9px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background-color: #0d3b66;
+            color: #fff;
+        }
+        .btn-primary:hover { background-color: #0a2d4f; }
+        .btn-edit {
+            background-color: #ffb703;
+            color: #333;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        .btn-delete {
+            background-color: #e63946;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 13px;
+            margin-left: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 18px;
+        }
+        thead {
+            background-color: #0d3b66;
+            color: #fff;
+        }
+        th, td {
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+        tbody tr:nth-child(even) { background-color: #f9fafb; }
+        tbody tr:hover { background-color: #eef3fa; }
+        .estado-si { color: #2a9d8f; font-weight: 600; }
+        .estado-no { color: #e63946; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="brand">TutorConnect</div>
+    <div class="user-info">
+        Administrador
+        <a th:href="@{/logout}">Salir</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>Lista de Asignaturas</h2>
+
+        <a th:href="@{/asignaturas/nuevo}" class="btn btn-primary">+ Nueva Asignatura</a>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="asignatura : ${asignaturas}">
+                <td th:text="${asignatura.idAsignatura}"></td>
+                <td th:text="${asignatura.nombre}"></td>
+                <td th:text="${asignatura.descripcion}"></td>
+                <td>
+                    <span th:if="${asignatura.activo}" class="estado-si">Sí</span>
+                    <span th:unless="${asignatura.activo}" class="estado-no">No</span>
+                </td>
+                <td>
+                    <a th:href="@{/asignaturas/editar/{id}(id=${asignatura.idAsignatura})}"
+                       class="btn btn-edit">Editar</a>
+                    <a th:href="@{/asignaturas/eliminar/{id}(id=${asignatura.idAsignatura})}"
+                       class="btn btn-delete"
+                       onclick="return confirm('¿Está seguro que desea eliminar esta asignatura?');">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

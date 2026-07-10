@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Asignatura - TutorConnect</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            width: 420px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #0d3b66;
+            color: #fff;
+            padding: 20px 24px;
+            text-align: center;
+        }
+        .card-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .card-header p {
+            font-size: 13px;
+            color: #cfe3ff;
+            margin-top: 4px;
+        }
+        .card-body {
+            padding: 24px 28px 28px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccd6e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #0d3b66;
+        }
+        textarea { resize: vertical; min-height: 70px; }
+        .check-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .check-group label { margin: 0; font-weight: 500; }
+        .btn {
+            display: inline-block;
+            border: none;
+            border-radius: 6px;
+            padding: 11px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #0d3b66;
+            color: #fff;
+            width: 100%;
+        }
+        .btn-primary:hover { background-color: #0a2d4f; }
+        .btn-secondary {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #0d3b66;
+            text-decoration: none;
+        }
+        .btn-secondary:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="card-header">
+        <h2>TutorConnect</h2>
+        <p th:text="${asignatura.idAsignatura} != null ? 'Editar Asignatura' : 'Nueva Asignatura'"></p>
+    </div>
+    <div class="card-body">
+        <form th:action="@{/asignaturas/guardar}" th:object="${asignatura}" method="post">
+            <input type="hidden" th:field="*{idAsignatura}"/>
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" th:field="*{nombre}" placeholder="Ej. Matemática" required>
+            </div>
+
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea th:field="*{descripcion}" placeholder="Ej. Álgebra"></textarea>
+            </div>
+
+            <div class="check-group">
+                <input type="checkbox" id="activo" th:field="*{activo}">
+                <label for="activo">Activo</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/asignaturas}" class="btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
