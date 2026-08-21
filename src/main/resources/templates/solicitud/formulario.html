@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Solicitud</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+          crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class="container-lg mt-4">
+
+    <h1>Nueva Solicitud</h1>
+
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <form th:action="@{/solicitudes/guardar}" method="post" class="mt-3">
+
+        <div class="mb-3">
+            <label class="form-label">Estudiante</label>
+            <select name="idEstudiante" class="form-select" required>
+                <option value="">-- Seleccione --</option>
+                <option th:each="e : ${estudiantes}"
+                        th:value="${e.idUsuario}"
+                        th:text="${e.usuario.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tutor</label>
+            <select name="idTutor" class="form-select" required>
+                <option value="">-- Seleccione --</option>
+                <option th:each="t : ${tutores}"
+                        th:value="${t.idUsuario}"
+                        th:text="${t.usuario.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Asignatura</label>
+            <select name="idAsignatura" class="form-select" required>
+                <option value="">-- Seleccione --</option>
+                <option th:each="a : ${asignaturas}"
+                        th:value="${a.idAsignatura}"
+                        th:text="${a.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Horario disponible</label>
+            <select name="idHorario" class="form-select" required>
+                <option value="">-- Seleccione --</option>
+                <option th:each="h : ${horarios}"
+                        th:value="${h.idHorario}"
+                        th:text="${h.tutor.usuario.nombre} + ' - ' + ${h.dia} + ' ' + ${h.horaInicio} + ' a ' + ${h.horaFin}">
+                </option>
+            </select>
+            <div class="form-text">Asegúrate de elegir un horario que pertenezca al tutor seleccionado.</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Comentario</label>
+            <textarea name="comentario" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/solicitudes}" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

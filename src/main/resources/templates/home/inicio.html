@@ -27,14 +27,16 @@
         <div class="col-md-3"><a th:href="@{/estudiantes}" class="btn btn-outline-dark w-100">Estudiantes</a></div>
     </div>
 
-    <div sec:authorize="hasRole('TUTOR')" class="alert alert-info mt-3">
-        Panel de tutor: todavía no hay pantallas propias — vienen en la siguiente etapa
-        (agenda, horarios, solicitudes).
+    <div sec:authorize="hasRole('TUTOR')" class="row g-3 mt-2">
+        <div class="col-md-4"><a th:href="@{/horarios}" class="btn btn-outline-dark w-100">Mis horarios</a></div>
+        <div class="col-md-4"><a th:href="@{/solicitudes}" class="btn btn-outline-dark w-100">Solicitudes recibidas</a></div>
+        <div class="col-md-4"><a th:href="@{/sesiones}" class="btn btn-outline-dark w-100">Sesiones</a></div>
     </div>
 
-    <div sec:authorize="hasRole('ESTUDIANTE')" class="alert alert-info mt-3">
-        Panel de estudiante: todavía no hay pantallas propias — vienen en la siguiente etapa
-        (buscar tutor, solicitar tutoría).
+    <div sec:authorize="hasRole('ESTUDIANTE')" class="row g-3 mt-2">
+        <div class="col-md-4"><a th:href="@{/tutores}" class="btn btn-outline-dark w-100">Buscar tutor</a></div>
+        <div class="col-md-4"><a th:href="@{/solicitudes/nuevo}" class="btn btn-outline-dark w-100">Solicitar tutoría</a></div>
+        <div class="col-md-4"><a th:href="@{/solicitudes}" class="btn btn-outline-dark w-100">Mis solicitudes</a></div>
     </div>
 </div>
 </body>

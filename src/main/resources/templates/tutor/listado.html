@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -13,11 +14,21 @@
 
 <body>
 
+<nav class="navbar navbar-dark bg-dark px-3 d-flex justify-content-between">
+    <span class="navbar-brand">TutorConnect</span>
+    <div class="d-flex align-items-center">
+        <a th:href="@{/inicio}" class="btn btn-sm btn-outline-light me-2">Volver al inicio</a>
+        <form th:action="@{/logout}" method="post" class="d-flex mb-0">
+            <button class="btn btn-sm btn-outline-light" type="submit">Salir</button>
+        </form>
+    </div>
+</nav>
+
 <div class="container-lg mt-4">
 
     <div class="d-flex justify-content-between align-items-center">
         <h1>Listado de Tutores</h1>
-        <a th:href="@{/tutores/nuevo}" class="btn btn-primary">Nuevo tutor</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/tutores/nuevo}" class="btn btn-primary">Nuevo tutor</a>
     </div>
 
     <div class="alert alert-primary" role="alert">
@@ -34,7 +45,7 @@
                 <th>Biografía</th>
                 <th>Materias</th>
                 <th>Activo</th>
-                <th>Acciones</th>
+                <th sec:authorize="hasRole('ADMIN')">Acciones</th>
             </tr>
         </thead>
 
@@ -50,7 +61,7 @@
                           th:text="${asignatura.nombre}"></span>
                 </td>
                 <td th:text="${tutor.activo ? 'Sí' : 'No'}"></td>
-                <td>
+                <td sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/tutores/editar/{id}(id=${tutor.idUsuario})}" class="btn btn-sm btn-outline-primary">Editar</a>
                     <a th:href="@{/tutores/eliminar/{id}(id=${tutor.idUsuario})}" class="btn btn-sm btn-outline-danger"
                        onclick="return confirm('¿Eliminar este tutor?');">Eliminar</a>

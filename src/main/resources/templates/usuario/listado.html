@@ -13,6 +13,16 @@
 
 <body>
 
+<nav class="navbar navbar-dark bg-dark px-3 d-flex justify-content-between">
+    <span class="navbar-brand">TutorConnect</span>
+    <div class="d-flex align-items-center">
+        <a th:href="@{/inicio}" class="btn btn-sm btn-outline-light me-2">Volver al inicio</a>
+        <form th:action="@{/logout}" method="post" class="d-flex mb-0">
+            <button class="btn btn-sm btn-outline-light" type="submit">Salir</button>
+        </form>
+    </div>
+</nav>
+
 <div class="container-lg mt-4">
 
     <h1>Listado de Usuarios</h1>

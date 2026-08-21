@@ -98,7 +98,9 @@
     <div class="brand">TutorConnect</div>
     <div class="user-info">
         Administrador
-        <a th:href="@{/logout}">Salir</a>
+        <form th:action="@{/logout}" method="post" style="display:inline; margin-left:12px;">
+            <button type="submit" style="background:none; border:none; color:#cfe3ff; text-decoration:underline; cursor:pointer; font-size:14px; padding:0;">Salir</button>
+        </form>
     </div>
 </div>
 
