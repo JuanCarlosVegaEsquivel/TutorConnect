@@ -5,10 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/*
- * @author Vector
- */
-
 @Repository
 public interface TutorRepository extends JpaRepository<Tutor, Long> {
 
