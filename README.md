@@ -33,7 +33,7 @@ Universidad Fidélitas - 2026
 ---
 
 ## Tecnologías
-- **Frontend:** HTML5, CSS3, Bootstrap, Thymeleaf
+- **Frontend:** HTML5, Bootstrap, Thymeleaf
 - **Backend:** Java, Spring Boot (arquitectura MVC)
 - **Base de Datos:** MySQL + Hibernate/JPA
 - **Autenticacion:** Spring Security (Login y roles)
