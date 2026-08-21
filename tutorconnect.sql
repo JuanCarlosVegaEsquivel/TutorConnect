@@ -2,18 +2,7 @@
   Script de creación de base de datos para TutorConnect
   Universidad Fidélitas - Desarrollo de Aplicaciones Web y Patrones
 
-  Alineado 1:1 con las entidades Java del repositorio, más el campo
-  "rol" en usuario (ADMIN / TUTOR / ESTUDIANTE) para el login con
-  Spring Security.
-
-  Las contraseñas de los 3 usuarios de ejemplo son "123456", guardadas
-  como hash BCrypt (obligatorio: Spring Security necesita un
-  PasswordEncoder para comparar contraseñas, y BCrypt es el estándar).
-
-  PENDIENTE seg\u00fan el enunciado del proyecto (secci\u00f3n 10.3):
-    - Todav\u00eda no existe una tabla transaccional (ej. "tutoria") que
-      registre las solicitudes entre estudiante y tutor. El enunciado
-      pide "al menos una tabla destinada a registrar transacciones".
+  Las contraseñas de los 3 usuarios de ejemplo son "123456"
 */
 
 DROP DATABASE IF EXISTS tutorconnect;
@@ -22,7 +11,7 @@ CREATE DATABASE tutorconnect
   DEFAULT COLLATE utf8mb4_unicode_ci;
 USE tutorconnect;
 
--- --- Tablas ---
+-- Tablas
 
 CREATE TABLE usuario (
   id_usuario BIGINT NOT NULL AUTO_INCREMENT,
@@ -76,7 +65,6 @@ CREATE TABLE estudiante_asignatura (
 ) ENGINE = InnoDB;
 
 -- Módulo de Horarios (Horario.java): dia/horaInicio/horaFin como texto,
--- porque la entidad los define como String, no como DayOfWeek/TIME.
 CREATE TABLE horario (
   id_horario  BIGINT NOT NULL AUTO_INCREMENT,
   dia         VARCHAR(20) NOT NULL,
@@ -133,11 +121,10 @@ CREATE TABLE calificacion (
   FOREIGN KEY (id_sesion) REFERENCES sesion(id_sesion) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
--- --- Datos de ejemplo ---
 -- La contraseña de los tres es "123456", hasheada con BCrypt.
 
 INSERT INTO usuario (nombre, correo, contrasena, rol, activo) VALUES
-('Andrea Solano', 'admin@fidelitas.ac.cr', '$2a$10$b9nSM2YVvwo6zwuXmRFeEODSpOAvM7nuPSP18B/gRn5G7Sm.V/WoW', 'ADMIN', true),
+('Wilberth Molina', 'admin@fidelitas.ac.cr', '$2a$10$b9nSM2YVvwo6zwuXmRFeEODSpOAvM7nuPSP18B/gRn5G7Sm.V/WoW', 'ADMIN', true),
 ('Jorge Víquez', 'jviquez@fidelitas.ac.cr', '$2a$10$/IVVo9d/A7CZ.RvEqvwaZeUz3pF4OpjOEXhVFtijZGZjkjCxPcwcy', 'TUTOR', true),
 ('Carlos Mora', 'cmora@fidelitas.ac.cr', '$2a$10$tdtKVd6YJEf4dRL/iFlpo.gaUhOFNLMFqUwwinWstjIdxq71lbYYS', 'ESTUDIANTE', true);
 
