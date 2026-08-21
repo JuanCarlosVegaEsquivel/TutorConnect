@@ -3,20 +3,29 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>TutorConnect</title>
+    <title th:text="#{app.nombre}">TutorConnect</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+
+<div class="text-end p-2 container">
+    <small class="text-secondary me-2" th:text="#{nav.idioma} + ':'">Idioma:</small>
+    <a th:href="@{''(lang=es)}" class="me-2">Español</a>
+    <a th:href="@{''(lang=en)}" class="me-2">English</a>
+    <a th:href="@{''(lang=fr)}" class="me-2">Français</a>
+    <a th:href="@{''(lang=pt)}">Português</a>
+</div>
+
 <div class="container py-5 text-center">
-    <h1 class="fw-bold">TutorConnect</h1>
-    <p class="text-secondary">Sistema de gestión de tutorías universitarias</p>
+    <h1 class="fw-bold" th:text="#{app.nombre}">TutorConnect</h1>
+    <p class="text-secondary" th:text="#{app.subtitulo}">Sistema de gestión de tutorías</p>
 
     <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{/login}" class="btn btn-primary">Iniciar sesión</a>
-        <a th:href="@{/registro}" class="btn btn-outline-secondary">Crear cuenta</a>
+        <a th:href="@{/login}" class="btn btn-primary" th:text="#{nav.iniciarSesion}">Iniciar sesión</a>
+        <a th:href="@{/registro}" class="btn btn-outline-secondary" th:text="#{nav.crearCuenta}">Crear cuenta</a>
     </div>
     <div sec:authorize="isAuthenticated()">
-        <a th:href="@{/inicio}" class="btn btn-primary">Ir a mi panel</a>
+        <a th:href="@{/inicio}" class="btn btn-primary" th:text="#{nav.miPanel}">Ir a mi panel</a>
     </div>
 </div>
 </body>

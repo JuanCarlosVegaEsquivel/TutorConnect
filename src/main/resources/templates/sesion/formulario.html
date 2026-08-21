@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nueva Sesión</title>
-
+    <title th:text="#{sesion.formTitulo}">Nueva Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
@@ -15,9 +14,9 @@
 
 <div class="container-lg mt-4">
 
-    <h1>Nueva Sesión</h1>
+    <h1 th:text="#{sesion.formTitulo}">Nueva Sesión</h1>
 
-    <p th:if="${#lists.isEmpty(solicitudesAprobadas)}" class="alert alert-warning">
+    <p th:if="${#lists.isEmpty(solicitudesAprobadas)}" class="alert alert-warning" th:text="#{sesion.sinSolicitudesAprobadas}">
         No hay solicitudes aprobadas disponibles. Primero aprueba una solicitud.
     </p>
 
@@ -25,9 +24,9 @@
           th:action="@{/sesiones/guardar}" method="post" class="mt-3">
 
         <div class="mb-3">
-            <label class="form-label">Solicitud aprobada</label>
+            <label class="form-label" th:text="#{sesion.solicitudAprobada}">Solicitud aprobada</label>
             <select name="idSolicitud" class="form-select" required>
-                <option value="">-- Seleccione --</option>
+                <option value="" th:text="#{accion.seleccione}">-- Seleccione --</option>
                 <option th:each="sol : ${solicitudesAprobadas}"
                         th:value="${sol.idSolicitud}"
                         th:text="${sol.estudiante.usuario.nombre} + ' - ' + ${sol.tutor.usuario.nombre} + ' - ' + ${sol.asignatura.nombre}">
@@ -36,22 +35,22 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Fecha y hora de la sesión</label>
+            <label class="form-label" th:text="#{sesion.fechaHoraSesion}">Fecha y hora de la sesión</label>
             <input type="datetime-local" name="fechaHora" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Duración (minutos)</label>
+            <label class="form-label" th:text="#{sesion.duracion}">Duración (minutos)</label>
             <input type="number" name="duracionMinutos" class="form-control" min="1" value="60">
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Observaciones</label>
+            <label class="form-label" th:text="#{sesion.observaciones}">Observaciones</label>
             <textarea name="observaciones" class="form-control"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a th:href="@{/sesiones}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" th:text="#{accion.guardar}">Guardar</button>
+        <a th:href="@{/sesiones}" class="btn btn-secondary" th:text="#{accion.cancelar}">Cancelar</a>
 
     </form>
 

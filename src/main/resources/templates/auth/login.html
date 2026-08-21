@@ -2,43 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar sesión - TutorConnect</title>
+    <title th:text="#{login.titulo}">Iniciar sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-<div class="container" style="max-width: 420px; margin-top: 80px;">
+
+<div class="text-end p-2 container">
+    <small class="text-secondary me-2" th:text="#{nav.idioma} + ':'">Idioma:</small>
+    <a th:href="@{''(lang=es)}" class="me-2">Español</a>
+    <a th:href="@{''(lang=en)}" class="me-2">English</a>
+    <a th:href="@{''(lang=fr)}" class="me-2">Français</a>
+    <a th:href="@{''(lang=pt)}">Português</a>
+</div>
+
+<div class="container" style="max-width: 420px; margin-top: 20px;">
     <div class="card shadow-sm">
         <div class="card-body p-4">
-            <h4 class="mb-3">Iniciar sesión</h4>
+            <h4 class="mb-3" th:text="#{login.titulo}">Iniciar sesión</h4>
 
-            <div th:if="${param.error}" class="alert alert-danger py-2">
+            <div th:if="${param.error}" class="alert alert-danger py-2" th:text="#{login.errorCredenciales}">
                 Correo o contraseña incorrectos.
             </div>
-            <div th:if="${param.logout}" class="alert alert-success py-2">
+            <div th:if="${param.logout}" class="alert alert-success py-2" th:text="#{login.logoutExitoso}">
                 Cerraste sesión correctamente.
             </div>
             <div th:if="${exito}" class="alert alert-success py-2" th:text="${exito}"></div>
 
-            <!-- action="/login" y los nombres correo/contrasena deben coincidir
-                 exactamente con lo configurado en SecurityConfig.formLogin() -->
             <form th:action="@{/login}" method="post">
                 <div class="mb-3">
-                    <label class="form-label">Correo</label>
+                    <label class="form-label" th:text="#{login.correo}">Correo</label>
                     <input type="email" name="correo" class="form-control" required autofocus>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
+                    <label class="form-label" th:text="#{login.contrasena}">Contraseña</label>
                     <input type="password" name="contrasena" class="form-control" required>
                 </div>
-                <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                <button class="btn btn-primary w-100" type="submit" th:text="#{login.entrar}">Entrar</button>
             </form>
 
             <hr>
             <p class="text-center mb-0">
-                <small>¿No tenés cuenta? <a th:href="@{/registro}">Crear una</a></small>
+                <small>
+                    <span th:text="#{login.sinCuenta}">¿No tenés cuenta?</span>
+                    <a th:href="@{/registro}" th:text="#{login.crearUna}">Crear una</a>
+                </small>
             </p>
             <p class="text-center mt-2 text-secondary">
-                <small>Prueba: admin@fidelitas.ac.cr / jviquez@fidelitas.ac.cr / cmora@fidelitas.ac.cr — clave: 123456</small>
+                <small th:text="#{login.cuentaPrueba} + ': admin@fidelitas.ac.cr / jviquez@fidelitas.ac.cr / cmora@fidelitas.ac.cr — 123456'">
+                    Cuentas de prueba
+                </small>
             </p>
         </div>
     </div>

@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Horario</title>
-
+    <title th:text="#{horario.formTitulo}">Formulario de Horario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
@@ -15,91 +14,51 @@
 
 <div class="container-lg mt-4">
 
-    <h1>Formulario de Horario</h1>
+    <h1 th:text="#{horario.formTitulo}">Formulario de Horario</h1>
 
-    <div th:if="${error}"
-         class="alert alert-danger"
-         role="alert"
-         th:text="${error}">
-    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
 
-    <form th:action="@{/horarios/guardar}"
-          th:object="${horario}"
-          method="post">
+    <form th:action="@{/horarios/guardar}" th:object="${horario}" method="post">
 
-        <input type="hidden"
-               th:field="*{idHorario}">
+        <input type="hidden" th:field="*{idHorario}">
 
         <div class="mb-3">
-            <label for="tutor" class="form-label">Tutor</label>
-
-            <select id="tutor"
-                    th:field="*{tutor.idUsuario}"
-                    class="form-select"
-                    required>
-
-                <option value="">Seleccione un tutor</option>
-
+            <label for="tutor" class="form-label" th:text="#{horario.tutor}">Tutor</label>
+            <select id="tutor" th:field="*{tutor.idUsuario}" class="form-select" required>
+                <option value="" th:text="#{horario.seleccioneTutor}">Seleccione un tutor</option>
                 <option th:each="tutor : ${tutores}"
                         th:value="${tutor.idUsuario}"
                         th:text="${tutor.usuario.nombre}">
                 </option>
-
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="dia" class="form-label">Día</label>
-
-            <select id="dia"
-                    th:field="*{dia}"
-                    class="form-select"
-                    required>
-
-                <option value="">Seleccione un día</option>
-                <option value="Lunes">Lunes</option>
-                <option value="Martes">Martes</option>
-                <option value="Miércoles">Miércoles</option>
-                <option value="Jueves">Jueves</option>
-                <option value="Viernes">Viernes</option>
-                <option value="Sábado">Sábado</option>
-                <option value="Domingo">Domingo</option>
-
+            <label for="dia" class="form-label" th:text="#{horario.dia}">Día</label>
+            <select id="dia" th:field="*{dia}" class="form-select" required>
+                <option value="" th:text="#{horario.seleccioneDia}">Seleccione un día</option>
+                <option value="Lunes" th:text="#{horario.dias.lunes}">Lunes</option>
+                <option value="Martes" th:text="#{horario.dias.martes}">Martes</option>
+                <option value="Miércoles" th:text="#{horario.dias.miercoles}">Miércoles</option>
+                <option value="Jueves" th:text="#{horario.dias.jueves}">Jueves</option>
+                <option value="Viernes" th:text="#{horario.dias.viernes}">Viernes</option>
+                <option value="Sábado" th:text="#{horario.dias.sabado}">Sábado</option>
+                <option value="Domingo" th:text="#{horario.dias.domingo}">Domingo</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="horaInicio" class="form-label">
-                Hora de inicio
-            </label>
-
-            <input type="time"
-                   id="horaInicio"
-                   th:field="*{horaInicio}"
-                   class="form-control"
-                   required>
+            <label for="horaInicio" class="form-label" th:text="#{horario.horaInicio}">Hora de inicio</label>
+            <input type="time" id="horaInicio" th:field="*{horaInicio}" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label for="horaFin" class="form-label">
-                Hora de fin
-            </label>
-
-            <input type="time"
-                   id="horaFin"
-                   th:field="*{horaFin}"
-                   class="form-control"
-                   required>
+            <label for="horaFin" class="form-label" th:text="#{horario.horaFin}">Hora de fin</label>
+            <input type="time" id="horaFin" th:field="*{horaFin}" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-            Guardar
-        </button>
-
-        <a th:href="@{/horarios}"
-           class="btn btn-secondary">
-            Cancelar
-        </a>
+        <button type="submit" class="btn btn-primary" th:text="#{accion.guardar}">Guardar</button>
+        <a th:href="@{/horarios}" class="btn btn-secondary" th:text="#{accion.cancelar}">Cancelar</a>
 
     </form>
 

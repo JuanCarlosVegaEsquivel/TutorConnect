@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Estudiantes</title>
-
+    <title th:text="#{estudiante.listado}">Listado de Estudiantes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
@@ -14,11 +13,11 @@
 <body>
 
 <nav class="navbar navbar-dark bg-dark px-3 d-flex justify-content-between">
-    <span class="navbar-brand">TutorConnect</span>
+    <span class="navbar-brand" th:text="#{app.nombre}">TutorConnect</span>
     <div class="d-flex align-items-center">
-        <a th:href="@{/inicio}" class="btn btn-sm btn-outline-light me-2">Volver al inicio</a>
+        <a th:href="@{/inicio}" class="btn btn-sm btn-outline-light me-2" th:text="#{nav.volverInicio}">Volver al inicio</a>
         <form th:action="@{/logout}" method="post" class="d-flex mb-0">
-            <button class="btn btn-sm btn-outline-light" type="submit">Salir</button>
+            <button class="btn btn-sm btn-outline-light" type="submit" th:text="#{nav.salir}">Salir</button>
         </form>
     </div>
 </nav>
@@ -26,31 +25,28 @@
 <div class="container-lg mt-4">
 
     <div class="d-flex justify-content-between align-items-center">
-        <h1>Listado de Estudiantes</h1>
-        <a th:href="@{/estudiantes/nuevo}" class="btn btn-primary">Nuevo estudiante</a>
+        <h1 th:text="#{estudiante.listado}">Listado de Estudiantes</h1>
+        <a th:href="@{/estudiantes/nuevo}" class="btn btn-primary" th:text="#{estudiante.nuevo}">Nuevo estudiante</a>
     </div>
 
     <div class="alert alert-primary" role="alert">
-        Total de estudiantes:
+        <span th:text="#{estudiante.total}">Total de estudiantes</span>:
         <span th:text="${totalEstudiantes}"></span>
     </div>
 
     <table class="table">
-
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Carrera</th>
-                <th>Teléfono</th>
-                <th>Materias de interés</th>
-                <th>Activo</th>
-                <th>Acciones</th>
+                <th th:text="#{estudiante.nombre}">Nombre</th>
+                <th th:text="#{estudiante.correo}">Correo</th>
+                <th th:text="#{estudiante.carrera}">Carrera</th>
+                <th th:text="#{estudiante.telefono}">Teléfono</th>
+                <th th:text="#{estudiante.materiasInteres}">Materias de interés</th>
+                <th th:text="#{estudiante.activo}">Activo</th>
+                <th th:text="#{estudiante.acciones}">Acciones</th>
             </tr>
         </thead>
-
         <tbody>
-
             <tr th:each="estudiante : ${estudiantes}">
                 <td th:text="${estudiante.usuario.nombre}"></td>
                 <td th:text="${estudiante.usuario.correo}"></td>
@@ -61,16 +57,15 @@
                           th:each="asignatura : ${estudiante.asignaturasInteres}"
                           th:text="${asignatura.nombre}"></span>
                 </td>
-                <td th:text="${estudiante.activo ? 'Sí' : 'No'}"></td>
+                <td th:text="${estudiante.activo} ? #{texto.si} : #{texto.no}"></td>
                 <td>
-                    <a th:href="@{/estudiantes/editar/{id}(id=${estudiante.idUsuario})}" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <a th:href="@{/estudiantes/editar/{id}(id=${estudiante.idUsuario})}" class="btn btn-sm btn-outline-primary" th:text="#{accion.editar}">Editar</a>
                     <a th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.idUsuario})}" class="btn btn-sm btn-outline-danger"
-                       onclick="return confirm('¿Eliminar este estudiante?');">Eliminar</a>
+                       th:text="#{accion.eliminar}"
+                       th:onclick="'return confirm(\'' + #{estudiante.confirmarEliminar} + '\');'">Eliminar</a>
                 </td>
             </tr>
-
         </tbody>
-
     </table>
 
 </div>
