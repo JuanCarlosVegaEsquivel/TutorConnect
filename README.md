@@ -60,16 +60,10 @@ Universidad Fidélitas - 2026
 ```
    http://localhost/
 ```
-   Rutas disponibles actualmente:
-   - `http://localhost/usuarios` — listado de usuarios
-   - `http://localhost/tutores` — listado, alta y edición de tutores
-   - `http://localhost/estudiantes` — módulo de estudiantes
-   - `http://localhost/asignaturas` — módulo de asignaturas (ver nota en Pendientes)
 ---
- 
 ## Estado del avance
  
-**Entrega 2 en progreso.** Módulos implementados hasta el momento, cada uno con arquitectura en capas (`domain` → `repository` → `service` → `controller` → vistas Thymeleaf con Bootstrap):
+**Entrega Final Completada.** Cada módulo fue implementado con arquitectura en capas (domain → repository → service → controller → vistas Thymeleaf con Bootstrap). Los aportes finales de cada integrante son::
  
 | Módulo | Responsable | Estado |
 |---|---|---|
