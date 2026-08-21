@@ -18,21 +18,21 @@ public class AsignaturaController {
         this.asignaturaService = asignaturaService;
     }
 
-    // Listado
+    // listado
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("asignaturas", asignaturaService.listar());
         return "asignatura/listar";
     }
 
-    // Formulario para nueva asignatura
+    // para nueva asignatura
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("asignatura", new Asignatura());
         return "asignatura/formulario";
     }
 
-    // Formulario para editar
+    // para editar
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Asignatura asignatura = asignaturaService.buscarPorId(id)

@@ -12,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author (tu nombre aquí)
- */
 
 @Controller
 @RequestMapping("/estudiantes")
@@ -33,7 +30,7 @@ public class EstudianteController {
         this.asignaturaService = asignaturaService;
     }
 
-    // Listado
+    // listado
     @GetMapping
     public String listar(Model model) {
         var estudiantes = estudianteService.listar();
@@ -42,7 +39,7 @@ public class EstudianteController {
         return "estudiante/listado";
     }
 
-    // Formulario para nuevo estudiante
+    // para nuevo estudiante
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("estudiante", new Estudiante());
@@ -52,7 +49,7 @@ public class EstudianteController {
         return "estudiante/formulario";
     }
 
-    // Formulario para editar
+    // para editar
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Estudiante estudiante = estudianteService.buscarPorId(id)
@@ -69,7 +66,7 @@ public class EstudianteController {
         return "estudiante/formulario";
     }
 
-    // Guardar (nuevo o edición)
+    //(nuevo o edición)
     @PostMapping("/guardar")
     public String guardar(@RequestParam Long idUsuario,
                            @RequestParam(required = false) String carrera,
@@ -80,7 +77,7 @@ public class EstudianteController {
         return "redirect:/estudiantes";
     }
 
-    // Eliminar
+    // eliminar
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
         estudianteService.eliminar(id);
