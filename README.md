@@ -7,7 +7,9 @@ Universidad Fidélitas - 2026
 - Henry Gerardo Izaba Díaz
 - Juan Carlos Vega Esquivel
 - Jorge Viquez Espinoza
-- Gabriel Martinez Quesada
+
+- El compañero "Gabriel Martinez Quesada" abandono el curso y no se participa en la entrega final del proyecto
+
 ---
 ## ¿De qué trata el proyecto?
 - TutorConnect es una plataforma web para gestionar tutorías académicas entre estudiantes y tutores de una universidad. La idea es reemplazar la coordinación informal (WhatsApp, correos, etc.) por un sistema centralizado donde se puedan solicitar, aprobar y dar seguimiento a las sesiones de tutoría.
