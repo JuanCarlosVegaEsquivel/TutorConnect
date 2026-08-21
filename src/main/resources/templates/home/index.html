@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>TutorConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5 text-center">
+    <h1 class="fw-bold">TutorConnect</h1>
+    <p class="text-secondary">Sistema de gestión de tutorías universitarias</p>
+
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}" class="btn btn-primary">Iniciar sesión</a>
+        <a th:href="@{/registro}" class="btn btn-outline-secondary">Crear cuenta</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/inicio}" class="btn btn-primary">Ir a mi panel</a>
+    </div>
+</div>
+</body>
+</html>

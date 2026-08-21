@@ -19,8 +19,13 @@ public class Usuario implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String correo;
 
+    // Siempre guardado como hash BCrypt, nunca en texto plano.
     @Column(nullable = false, length = 100)
     private String contrasena;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Rol rol = Rol.ESTUDIANTE;
 
     @Column(nullable = false)
     private boolean activo;
@@ -58,6 +63,14 @@ public class Usuario implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public boolean isActivo() {
