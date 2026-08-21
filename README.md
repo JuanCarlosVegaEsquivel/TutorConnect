@@ -73,10 +73,10 @@ Universidad Fidélitas - 2026
  
 | Módulo | Responsable | Estado |
 |---|---|---|
-| Usuario | Jorge Viquez Espinoza | Creó la base de datos en MySQL Workbench, el módulo de Usuario con su listado, la conexión con MySQL y la integración de Bootstrap. |
-| Asignatura | Henry Gerardo Izaba Díaz | CRUD en backend completo. Vistas con desajuste de nombres/rutas pendiente de corregir (ver Pendientes). |
-| Tutor | Juan Carlos Vega Esquivel | CRUD completo: alta, edición, listado y eliminación, con selección de asignaturas que imparte (relación muchos a muchos) y actualizacion del READ.ME |
-| Estudiante | Gabriel Martinez Quesada | CRUD implementado. |
+| Usuario | Jorge Viquez Espinoza | Creó la base de datos en MySQL Workbench, el módulo de Usuario con su listado, la conexión con MySQL y la integración de Bootstrap, ademas creo el modulo de horarios y ajustes de comentarios. |
+| Asignatura | Henry Gerardo Izaba Díaz | CRUD en backend completo. Creo la opcion de crear solicitudes, sesiones, y calificaciones. |
+| Tutor | Juan Carlos Vega Esquivel | CRUD completo: alta, edición, listado y eliminación, con selección de asignaturas que imparte (relación muchos a muchos). Corrigió bugs de permisos de tutor, implementó internacionalización (i18n), ajustó vistas de menús para cambio de idioma, y agregó login con Spring Security (roles y BCrypt) y actualizacion del READ.ME |
+| Estudiante | Gabriel Martinez Quesada | CRUD implementado inicialmente, pero el compañero abandonó el curso y no participa en la entrega final. El equipo corrigió un bug en el que nuevas cuentas de estudiante no podían solicitar tutorías. |
  
 ---
  
