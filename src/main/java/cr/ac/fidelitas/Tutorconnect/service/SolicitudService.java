@@ -17,10 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author (tu nombre aquí)
- */
 @Service
 public class SolicitudService {
 
@@ -51,6 +47,16 @@ public class SolicitudService {
     @Transactional(readOnly = true)
     public List<Solicitud> listarPorEstado(EstadoSolicitud estado) {
         return solicitudRepository.findByEstado(estado);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Solicitud> listarPorTutor(Long idTutor) {
+        return solicitudRepository.findByTutorIdUsuario(idTutor);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Solicitud> listarPorEstudiante(Long idEstudiante) {
+        return solicitudRepository.findByEstudianteIdUsuario(idEstudiante);
     }
 
     @Transactional(readOnly = true)

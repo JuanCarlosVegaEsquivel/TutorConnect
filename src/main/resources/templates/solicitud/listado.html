@@ -27,7 +27,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <h1 th:text="#{solicitud.listado}">Listado de Solicitudes</h1>
-        <a th:href="@{/solicitudes/nuevo}" class="btn btn-primary" th:text="#{solicitud.nuevo}">Nueva solicitud</a>
+        <a sec:authorize="hasAnyRole('ESTUDIANTE','ADMIN')" th:href="@{/solicitudes/nuevo}" class="btn btn-primary" th:text="#{solicitud.nuevo}">Nueva solicitud</a>
     </div>
 
     <table class="table mt-3">

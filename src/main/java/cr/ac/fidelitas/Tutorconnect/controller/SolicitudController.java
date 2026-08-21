@@ -1,6 +1,7 @@
 package cr.ac.fidelitas.Tutorconnect.controller;
 
 import cr.ac.fidelitas.Tutorconnect.domain.Rol;
+import cr.ac.fidelitas.Tutorconnect.domain.Solicitud;
 import cr.ac.fidelitas.Tutorconnect.domain.Usuario;
 import cr.ac.fidelitas.Tutorconnect.repository.UsuarioRepository;
 import cr.ac.fidelitas.Tutorconnect.service.AsignaturaService;
@@ -9,6 +10,7 @@ import cr.ac.fidelitas.Tutorconnect.service.HorarioService;
 import cr.ac.fidelitas.Tutorconnect.service.SolicitudService;
 import cr.ac.fidelitas.Tutorconnect.service.TutorService;
 import java.security.Principal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +44,20 @@ public class SolicitudController {
 
     // Listado
     @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("solicitudes", solicitudService.listar());
+    public String listar(Model model, Principal principal) {
+        Usuario usuarioActual = usuarioRepository.findByCorreo(principal.getName())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        List<Solicitud> solicitudes;
+        if (usuarioActual.getRol() == Rol.ADMIN) {
+            solicitudes = solicitudService.listar();
+        } else if (usuarioActual.getRol() == Rol.TUTOR) {
+            solicitudes = solicitudService.listarPorTutor(usuarioActual.getIdUsuario());
+        } else {
+            solicitudes = solicitudService.listarPorEstudiante(usuarioActual.getIdUsuario());
+        }
+
+        model.addAttribute("solicitudes", solicitudes);
         return "solicitud/listado";
     }
 
@@ -58,8 +72,7 @@ public class SolicitudController {
         boolean esAdmin = usuarioActual.getRol() == Rol.ADMIN;
         model.addAttribute("esAdmin", esAdmin);
 
-        //Si NO es admin, el estudiante queda fijo: es el propio usuario logueado.
-        //No se le muestra el desplegable con todos los estudiantes.
+        // Si NO es admin, el estudiante queda fijo: es el propio usuario logueado.
         if (!esAdmin) {
             model.addAttribute("idEstudianteActual", usuarioActual.getIdUsuario());
             model.addAttribute("nombreEstudianteActual", usuarioActual.getNombre());
@@ -81,9 +94,8 @@ public class SolicitudController {
         Usuario usuarioActual = usuarioRepository.findByCorreo(principal.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        //Si el usuario logueado NO es admin, se ignora cualquier idEstudiante
-        // que venga del formulario (por seguridad, no confiamos en el cliente)
-        // y se fuerza a que sea su propio id.
+        // Si el usuario logueado NO es admin, se ignora cualquier idEstudiante
+        // que venga del formulario y se fuerza a que sea su propio id.
         Long idEstudianteFinal = (usuarioActual.getRol() == Rol.ADMIN)
                 ? idEstudiante
                 : usuarioActual.getIdUsuario();

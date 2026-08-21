@@ -22,7 +22,8 @@
 
         <input type="hidden" th:field="*{idHorario}">
 
-        <div class="mb-3">
+        <!-- ADMIN: puede elegir cualquier tutor -->
+        <div class="mb-3" th:if="${esAdmin}">
             <label for="tutor" class="form-label" th:text="#{horario.tutor}">Tutor</label>
             <select id="tutor" th:field="*{tutor.idUsuario}" class="form-select" required>
                 <option value="" th:text="#{horario.seleccioneTutor}">Seleccione un tutor</option>
@@ -31,6 +32,13 @@
                         th:text="${tutor.usuario.nombre}">
                 </option>
             </select>
+        </div>
+
+        <!-- TUTOR: queda fijo, es el propio usuario logueado -->
+        <div class="mb-3" th:unless="${esAdmin}">
+            <label class="form-label" th:text="#{horario.tutor}">Tutor</label>
+            <input type="text" class="form-control" th:value="${nombreTutorActual}" disabled>
+            <input type="hidden" name="tutor.idUsuario" th:value="${idTutorActual}">
         </div>
 
         <div class="mb-3">
@@ -61,8 +69,6 @@
         <a th:href="@{/horarios}" class="btn btn-secondary" th:text="#{accion.cancelar}">Cancelar</a>
 
     </form>
-
 </div>
-
 </body>
 </html>

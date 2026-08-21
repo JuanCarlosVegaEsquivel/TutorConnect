@@ -27,24 +27,101 @@
         <span class="badge bg-secondary" th:text="${usuario.rol.etiqueta}">Rol</span>
     </p>
 
-    <div sec:authorize="hasRole('ADMIN')" class="row g-3 mt-2">
-        <div class="col-md-3"><a th:href="@{/usuario/listado}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuUsuarios}">Usuarios</a></div>
-        <div class="col-md-3"><a th:href="@{/asignaturas}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuAsignaturas}">Asignaturas</a></div>
-        <div class="col-md-3"><a th:href="@{/tutores}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuTutores}">Tutores</a></div>
-        <div class="col-md-3"><a th:href="@{/estudiantes}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuEstudiantes}">Estudiantes</a></div>
+    <!-- PANEL DE ADMINISTRADOR -->
+    <div sec:authorize="hasRole('ADMIN')" class="mt-2">
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <a th:href="@{/usuario/listado}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuUsuarios}">Usuarios</a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/asignaturas}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuAsignaturas}">Asignaturas</a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/tutores}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuTutores}">Tutores</a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/estudiantes}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuEstudiantes}">Estudiantes</a>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+            <div class="col-md-3">
+                <a th:href="@{/horarios}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuHorarios}">Horarios</a>
+            </div>
+        </div>
+
+        <h5 class="mt-4" th:text="#{inicio.estadisticasTitulo}">Resumen del sistema</h5>
+        <div class="row g-3">
+            <div class="col-6 col-md">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold" th:text="${totalUsuarios}">0</div>
+                        <div class="text-secondary small" th:text="#{inicio.totalUsuarios}">Usuarios</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold" th:text="${totalTutores}">0</div>
+                        <div class="text-secondary small" th:text="#{inicio.totalTutores}">Tutores</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold" th:text="${totalEstudiantes}">0</div>
+                        <div class="text-secondary small" th:text="#{inicio.totalEstudiantes}">Estudiantes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold" th:text="${totalAsignaturas}">0</div>
+                        <div class="text-secondary small" th:text="#{inicio.totalAsignaturas}">Asignaturas</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold" th:text="${totalHorarios}">0</div>
+                        <div class="text-secondary small" th:text="#{inicio.totalHorarios}">Horarios</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- PANEL DE TUTOR -->
     <div sec:authorize="hasRole('TUTOR')" class="row g-3 mt-2">
-        <div class="col-md-4"><a th:href="@{/horarios}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuMisHorarios}">Mis horarios</a></div>
-        <div class="col-md-4"><a th:href="@{/solicitudes}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuSolicitudesRecibidas}">Solicitudes recibidas</a></div>
-        <div class="col-md-4"><a th:href="@{/sesiones}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuSesiones}">Sesiones</a></div>
+        <div class="col-md-4">
+            <a th:href="@{/horarios}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuMisHorarios}">Mis horarios</a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/solicitudes}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuSolicitudesRecibidas}">Solicitudes recibidas</a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/sesiones}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuSesiones}">Sesiones</a>
+        </div>
     </div>
 
+    <!-- PANEL DE ESTUDIANTE -->
     <div sec:authorize="hasRole('ESTUDIANTE')" class="row g-3 mt-2">
-        <div class="col-md-4"><a th:href="@{/tutores}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuBuscarTutor}">Buscar tutor</a></div>
-        <div class="col-md-4"><a th:href="@{/solicitudes/nuevo}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuSolicitarTutoria}">Solicitar tutoría</a></div>
-        <div class="col-md-4"><a th:href="@{/solicitudes}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuMisSolicitudes}">Mis solicitudes</a></div>
+        <div class="col-md-4">
+            <a th:href="@{/tutores}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuBuscarTutor}">Buscar tutor</a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/solicitudes/nuevo}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuSolicitarTutoria}">Solicitar tutoría</a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/solicitudes}" class="btn btn-outline-dark w-100" th:text="#{inicio.menuMisSolicitudes}">Mis solicitudes</a>
+        </div>
     </div>
+
 </div>
 </body>
 </html>
