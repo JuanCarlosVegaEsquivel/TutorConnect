@@ -20,7 +20,8 @@
 
     <form th:action="@{/solicitudes/guardar}" method="post" class="mt-3">
 
-        <div class="mb-3">
+        <!-- ADMIN: puede elegir cualquier estudiante -->
+        <div class="mb-3" th:if="${esAdmin}">
             <label class="form-label" th:text="#{solicitud.estudiante}">Estudiante</label>
             <select name="idEstudiante" class="form-select" required>
                 <option value="" th:text="#{accion.seleccione}">-- Seleccione --</option>
@@ -28,6 +29,13 @@
                         th:value="${e.idUsuario}"
                         th:text="${e.usuario.nombre}"></option>
             </select>
+        </div>
+
+        <!-- ESTUDIANTE: queda fijo, es el propio usuario logueado -->
+        <div class="mb-3" th:unless="${esAdmin}">
+            <label class="form-label" th:text="#{solicitud.estudiante}">Estudiante</label>
+            <input type="text" class="form-control" th:value="${nombreEstudianteActual}" disabled>
+            <input type="hidden" name="idEstudiante" th:value="${idEstudianteActual}">
         </div>
 
         <div class="mb-3">

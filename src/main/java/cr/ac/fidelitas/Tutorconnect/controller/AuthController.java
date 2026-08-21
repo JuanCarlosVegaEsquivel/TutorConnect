@@ -1,7 +1,11 @@
 package cr.ac.fidelitas.Tutorconnect.controller;
 
+import cr.ac.fidelitas.Tutorconnect.domain.Estudiante;
 import cr.ac.fidelitas.Tutorconnect.domain.Rol;
+import cr.ac.fidelitas.Tutorconnect.domain.Tutor;
 import cr.ac.fidelitas.Tutorconnect.domain.Usuario;
+import cr.ac.fidelitas.Tutorconnect.repository.EstudianteRepository;
+import cr.ac.fidelitas.Tutorconnect.repository.TutorRepository;
 import cr.ac.fidelitas.Tutorconnect.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,10 +23,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;
+    private final EstudianteRepository estudianteRepository;
+    private final TutorRepository tutorRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(UsuarioRepository usuarioRepository,
+                          EstudianteRepository estudianteRepository,
+                          TutorRepository tutorRepository,
+                          PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.estudianteRepository = estudianteRepository;
+        this.tutorRepository = tutorRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -60,10 +71,23 @@ public class AuthController {
         usuario.setNombre(nombre);
         usuario.setCorreo(correo);
         usuario.setContrasena(passwordEncoder.encode(contrasena));
-    //Nunca se permite registrarse como ADMIN desde el formulario público.
-        usuario.setRol(rol == Rol.ADMIN ? Rol.ESTUDIANTE : rol);
+        //Nunca se permite registrarse como ADMIN desde el formulario público.
+        Rol rolFinal = (rol == Rol.ADMIN) ? Rol.ESTUDIANTE : rol;
+        usuario.setRol(rolFinal);
         usuario.setActivo(true);
-        usuarioRepository.save(usuario);
+        usuario = usuarioRepository.save(usuario);
+
+        if (rolFinal == Rol.ESTUDIANTE) {
+            Estudiante estudiante = new Estudiante();
+            estudiante.setUsuario(usuario);
+            estudiante.setActivo(true);
+            estudianteRepository.save(estudiante);
+        } else if (rolFinal == Rol.TUTOR) {
+            Tutor tutor = new Tutor();
+            tutor.setUsuario(usuario);
+            tutor.setActivo(true);
+            tutorRepository.save(tutor);
+        }
 
         redirect.addFlashAttribute("exito", "Cuenta creada. Ya puede iniciar sesión.");
         return "redirect:/login";
